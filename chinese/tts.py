@@ -53,7 +53,15 @@ class AudioDownloader:
 
     def get_google(self):
         tts = gTTS(self.text, lang=self.lang)
-        tts.save(self.path)
+        # Code inserted from https://github.com/pndurette/gTTS/issues/232
+        count=1
+        while True:
+            try:
+                tts.save(self.path)
+                break
+            except:
+                print('got the issue from https://github.com/luoliyan/chinese-support-redux/issues/161 '+str(count) + ' times.')
+                count+=1
 
     def get_baidu(self):
         query = {
